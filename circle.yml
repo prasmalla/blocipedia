@@ -1,0 +1,6 @@
+# heroku deploy
+deployment:
+  prod:
+    branch: master
+    heroku:
+      appname: prasmalla-blocipedia
