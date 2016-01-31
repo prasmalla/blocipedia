@@ -49,3 +49,4 @@ end
 gem 'figaro'
 gem 'puma'
 gem 'devise'
+gem 'pundit'

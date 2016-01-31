@@ -5,5 +5,22 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  has_many :wikis         
+  has_many :wikis
+  after_initialize :set_role
+
+  def admin?
+    role == 'admin'
+  end
+
+  def standard?
+    role == 'standard'
+  end
+
+  def premium?
+    role == 'premium'
+  end
+
+  def set_role
+    self.role = "standard"
+  end
 end
