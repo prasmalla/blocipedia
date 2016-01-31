@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="media">
+      <div class="media-body">
+        <h2 class="media-heading">Wikis</h2>
+        <%= link_to new_wiki_path, class: 'btn btn-default pull-right' do %>
+          <i class="glyphicon glyphicon-plus"></i> Add wiki
+        <% end %>
+      </div>
+    </div>
+    <div class="media">
+      <div class="media-body">
+        <table class="table table-condensed">
+          <%= render @wikis %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
