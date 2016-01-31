@@ -1,4 +1,6 @@
 class WikisController < ApplicationController
+
+  before_filter :authorize_wiki, only: [:edit, :update, :destroy]
   
   def index
     @wikis = Wiki.all
@@ -9,11 +11,14 @@ class WikisController < ApplicationController
   end
 
   def new
-    @wiki = current_user.wikis.new
+    @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
-    @wiki = current_user.wikis.new(params.require(:wiki).permit(:title, :body, :private))
+    @wiki = Wiki.new(params.require(:wiki).permit(:title, :body, :private))
+    @wiki.user = current_user
+    authorize @wiki
 
     if @wiki.save
       flash[:notice] = "Wiki added successfully!"
@@ -25,12 +30,9 @@ class WikisController < ApplicationController
   end
 
   def edit
-    @wiki = current_user.wikis.find(params[:id])
   end
 
   def update
-    @wiki = current_user.wikis.find(params[:id])
-
     if @wiki.update_attributes(params.require(:wiki).permit(:title, :body, :private))
       flash[:notice] = "Wiki updated successfuly!"
       redirect_to @wiki
@@ -41,8 +43,6 @@ class WikisController < ApplicationController
   end
 
   def destroy
-    @wiki = current_user.wikis.find(params[:id])
-
     if @wiki.destroy
       flash[:notice] = "Wiki deleted successfuly!"
       redirect_to wikis_path
@@ -50,5 +50,12 @@ class WikisController < ApplicationController
       flash[:error] = "Oops! please try again."
       render :edit
     end
+  end
+
+  private 
+
+  def authorize_wiki
+    @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 end
