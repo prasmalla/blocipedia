@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   resources :wikis
 
   resources :charges, only: [:new, :create]
-
+  post 'downgrade', to: 'users#downgrade'
 end

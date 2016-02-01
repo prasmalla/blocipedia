@@ -1,4 +1,9 @@
 <div class="well well-lg">
   <h4><%= @user.name %> <small><%= link_to 'Edit', edit_user_registration_path %></small></h4>
+  <h5>
+    Account type: <%= @user.role.upcase %> 
+    <small><%= render partial: 'shared/update_membership' %>
+    </small>
+  </h5>
   <h6><%= @user.email %></h6>
 </div>

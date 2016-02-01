@@ -20,6 +20,9 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
+    user = current_user
+    user.upgrade!
+
     flash[:notice] = "Thanks for upgrading, #{current_user.email}!"
     redirect_to user_path(current_user)
 
