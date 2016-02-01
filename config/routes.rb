@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users, controllers: { registrations: 'registrations' }, path: "auth", path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   devise_scope :user do
     authenticated :user do
@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   
   resources :wikis
 
+  resources :charges, only: [:new, :create]
+  post 'downgrade', to: 'users#downgrade'
 end

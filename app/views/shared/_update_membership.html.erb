@@ -1,0 +1,5 @@
+<% if current_user.standard? %>
+  <%= link_to "Upgrade Account", new_charge_path %>
+<% else %>
+  <%= link_to "Downgrade Account", downgrade_path, method: :post, data: { confirm: "Are you down with the downgrade?" } %>  
+<% end unless current_user.admin? %>

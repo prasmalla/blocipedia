@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :confirmable, :lockable
 
   has_many :wikis
-  after_initialize :set_role
+  after_initialize :set_role, if: :new_record?
 
   def admin?
     role == 'admin'
@@ -20,7 +20,17 @@ class User < ActiveRecord::Base
     role == 'premium'
   end
 
-  def set_role
-    self.role = "standard"
+  def upgrade!
+    self.update_attribute(:role, 'premium') unless admin?
   end
+
+  def downgrade!
+    self.update_attribute(:role, 'standard') unless admin?
+  end
+
+  private
+
+    def set_role
+      self.role = "standard"
+    end
 end
