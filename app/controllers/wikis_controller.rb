@@ -3,7 +3,7 @@ class WikisController < ApplicationController
   before_filter :authorize_wiki, only: [:edit, :update, :destroy]
   
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
   end
 
   def show

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from Pundit::NotAuthorizedError do |exception|
-    redirect_to unauthenticated_root_path, alert: exception.message
+    redirect_to root_path, alert: exception.message
   end
 
   protected

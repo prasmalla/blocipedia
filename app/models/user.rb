@@ -21,16 +21,21 @@ class User < ActiveRecord::Base
   end
 
   def upgrade!
-    self.update_attribute(:role, 'premium') unless admin?
+    update_attribute(:role, 'premium') unless admin?
   end
 
   def downgrade!
-    self.update_attribute(:role, 'standard') unless admin?
+    unless admin?
+      update_attribute(:role, 'standard') 
+      self.wikis.where(private: true).each do |wiki|
+        wiki.update_attribute(:private, false)
+      end
+    end
   end
 
-  private
+private
 
-    def set_role
-      self.role = "standard"
-    end
+  def set_role
+    self.role = 'standard'
+  end
 end
