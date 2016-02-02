@@ -10,7 +10,7 @@
             <% end %>
           </small>
         </h2>
-        <p><%= @wiki.body %>
+        <p><%= markdown_to_html @wiki.body %>
       </div>
     </div>
   </div>

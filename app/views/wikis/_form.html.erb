@@ -1,10 +1,59 @@
+<% content_for :head do %>
+<%= javascript_include_tag '/epiceditor/js/epiceditor.min.js' %>
+<script>
+$(function(){
+  var opts = {
+    container: 'epiceditor',
+    textarea: null,
+    basePath: '/epiceditor',
+    clientSideStorage: true,
+    localStorageName: 'epiceditor',
+    useNativeFullscreen: true,
+    parser: marked,
+    file: {
+      name: 'epiceditor',
+      defaultContent: '',
+      autoSave: 100
+    },
+    theme: {
+      base: '/themes/base/epiceditor.css',
+      preview: '/themes/preview/github.css',
+      editor: '/themes/editor/epic-light.css'
+    },
+    button: {
+      preview: true,
+      fullscreen: true,
+      bar: "auto"
+    },
+    focusOnLoad: false,
+    shortcut: {
+      modifier: 18,
+      fullscreen: 70,
+      preview: 80
+    },
+    string: {
+      togglePreview: 'Toggle Preview Mode',
+      toggleEdit: 'Toggle Edit Mode',
+      toggleFullscreen: 'Enter Fullscreen'
+    },
+    autogrow: false
+  }
+  var editor = new EpicEditor(opts)
+  editor.load(function () {
+    console.log("Editor loaded.")
+  })
+})
+</script>
+<% end %>
 <div class="form-group">
   <%= f.label :title %>
   <%= f.text_field :title, autofocus: true, class: 'form-control' %>
 </div>
 <div class="form-group">
   <%= f.label :body %>
-  <%= f.text_area :body, class: 'form-control' %>
+  <div id="epiceditor">
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
 </div>
 <% if current_user.admin? || current_user.premium? %>
 <div class="form-group">
