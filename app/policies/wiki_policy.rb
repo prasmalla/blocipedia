@@ -8,7 +8,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def update?
-    !record.private || record.user == user || user.try(:admin?) || record.users.include?(user)
+    !record.private && user || record.user == user || user.try(:admin?) || record.users.include?(user)
   end
 
   def edit?
