@@ -3,8 +3,10 @@
     <div class="media">
       <div class="media-body">
         <h2 class="media-heading">Wikis <small>[<%= @wikis.count %>]</small></h2>
+        <% if policy(Wiki.new).create? %>
         <%= link_to new_wiki_path, class: 'btn btn-default pull-right' do %>
           <i class="glyphicon glyphicon-plus"></i> Add wiki
+        <% end %>
         <% end %>
       </div>
     </div>

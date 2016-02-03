@@ -7,5 +7,35 @@
       <%= render partial: 'form', locals: { f: f } %>
       <%= f.submit t('.create', :default => "Edit wiki"), class: "btn btn-default" %>
     <% end %>
+    <% if !current_user.standard? %>
+
+      <h5>Manage Collaborators</h5>
+
+      <table class="table table-condensed">
+        <tr>
+          <th>name</th>
+          <th>email</th>
+          <th>collaboration</th>
+        </tr>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if @wiki.users.include? user %>
+              <%= link_to wiki_collaboration_path(@wiki, @wiki.collaborator_for(user)), method: :delete, class: 'btn btn-default pull-right' do %>
+              <i class="glyphicon glyphicon-star"></i> Disallow
+              <% end %>
+            <% else %>
+            <%= link_to wiki_collaborations_path(@wiki, user_id: user.id), method: :post, class: 'btn btn-default pull-right' do %>
+              <i class="glyphicon glyphicon-star-empty"></i> Allow
+            <% end %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+
+    <% end %>
   </div>
 </div>

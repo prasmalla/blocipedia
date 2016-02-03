@@ -12,6 +12,7 @@
 !/log/.keep
 /tmp
 .DS_Store
+.rspec
 
 # Ignore application configuration
 /config/application.yml

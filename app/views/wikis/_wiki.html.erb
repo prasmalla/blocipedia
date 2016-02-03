@@ -1,13 +1,17 @@
 <tr>
   <td><%= link_to wiki.title, wiki %></td>
   <td>
-    <%= link_to edit_wiki_path(wiki) do %>
-      <i class="glyphicon glyphicon-edit"></i> Edit
+    <% if policy(wiki).edit? %>
+      <%= link_to edit_wiki_path(wiki) do %>
+        <i class="glyphicon glyphicon-edit"></i> Edit
+      <% end %>
     <% end %>
   </td>
   <td>
-    <%= link_to wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } do %>
-      <i class="glyphicon glyphicon-trash"></i> Delete
+    <% if policy(wiki).destroy? %>
+      <%= link_to wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } do %>
+        <i class="glyphicon glyphicon-trash"></i> Delete
+      <% end %>
     <% end %>
   </td>
 </tr>

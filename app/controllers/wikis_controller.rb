@@ -3,11 +3,12 @@ class WikisController < ApplicationController
   before_filter :authorize_wiki, only: [:edit, :update, :destroy]
   
   def index
-    @wikis = Wiki.visible_to(current_user)
+    @wikis = policy_scope(Wiki)
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    redirect_to @wiki, status: :moved_permanently if request.path != wiki_path(@wiki)
   end
 
   def new
@@ -30,6 +31,8 @@ class WikisController < ApplicationController
   end
 
   def edit
+    @wiki = Wiki.find(params[:id])
+    @users = User.all
   end
 
   def update
