@@ -3,7 +3,7 @@ require 'faker'
 # admin user
 User.skip_callback(:initialize, :after, :set_role)
 user = User.new(
-  name: 'admin',
+  name: 'admin user',
   email: 'default@user.com',
   password: 'dafault1',
   role: 'admin'
@@ -33,4 +33,3 @@ users = User.all
   )
   Collaboration.create(user: users.sample, wiki: wiki)
 end
-
