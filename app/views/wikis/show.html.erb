@@ -5,8 +5,15 @@
         <h2 class="media-heading">
           <%= @wiki.title %>
           <small>
-            <%= link_to edit_wiki_path, class: 'btn btn-default pull-right' do %>
-              <i class="glyphicon glyphicon-edit"></i> Edit
+            <% if policy(@wiki).edit? %>
+              <%= link_to edit_wiki_path, class: 'btn btn-default pull-right' do %>
+                <i class="glyphicon glyphicon-edit"></i> Edit
+              <% end %>
+            <% end %>
+            <% if policy(@wiki).destroy? %>
+              <%= link_to @wiki, method: :delete, class: 'btn btn-default pull-right', data: { confirm: 'Are you sure you want to delete this wiki?' } do %>
+                <i class="glyphicon glyphicon-trash"></i>
+              <% end %>
             <% end %>
           </small>
         </h2>

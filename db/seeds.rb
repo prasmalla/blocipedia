@@ -26,10 +26,11 @@ users = User.all
 
 # wikis
 18.times do
-  Wiki.create(
+  wiki = Wiki.create(
     title: Faker::Hipster.sentence(3),
     body: Faker::Hipster.paragraph,
     user: users.sample
   )
+  Collaboration.create(user: users.sample, wiki: wiki)
 end
 

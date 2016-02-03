@@ -3,7 +3,7 @@ class WikisController < ApplicationController
   before_filter :authorize_wiki, only: [:edit, :update, :destroy]
   
   def index
-    @wikis = Wiki.visible_to(current_user)
+    @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -30,6 +30,8 @@ class WikisController < ApplicationController
   end
 
   def edit
+    @wiki = Wiki.find(params[:id])
+    @users = User.all
   end
 
   def update

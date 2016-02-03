@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  has_many :wikis
+  has_many :collaborations
+  has_many :wikis, through: :collaborations
   after_initialize :set_role, if: :new_record?
 
   def admin?

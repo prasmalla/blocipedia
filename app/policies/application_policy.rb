@@ -23,15 +23,15 @@ class ApplicationPolicy
   end
 
   def update?
-    create?
+    user.present?
   end
 
   def edit?
-    create?
+    update?
   end
 
   def destroy?
-    create?
+    user.present? && user.admin?
   end
 
   def scope
